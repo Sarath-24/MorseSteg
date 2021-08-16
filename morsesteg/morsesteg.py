@@ -1,6 +1,5 @@
 from PIL import Image
-import optparse
-import sys
+import argparse
 import os
 
 
@@ -46,10 +45,13 @@ def Encoding(inputdata,_PNG):
 	path=_PNG
 	a=path.split(".")
 	img.save(f"{a[0]}en.png")
+	print("The Encoded message is saved in",f"{a[0]}en.png")
+	
 
 
-def Decode(inPNG):
-	_img = Image.open(inPNG)
+def Decode(Dec_Img):
+	print("Decoding Message...")
+	_img = Image.open(Dec_Img)
 	W = _img.size[0]   
 	H = _img.size[1]
 	_pixs = _img.load()
@@ -71,21 +73,20 @@ def Decode(inPNG):
 	print (answer)
 
 def Main():
-	parser = optparse.OptionParser('usage: python ImageEncoder.py -e or -d <output PNG image name>')
-	parser.add_option('-e',dest='outPNG',type='string',help='Please specify the output image file')
-	parser.add_option('-d',dest='inPNG',type='string',help='Please specify the input image file')
-	(options,arg) = parser.parse_args()
-	if (options.outPNG == None and options.inPNG == None):
+	parser = argparse.ArgumentParser('python morsesteg.py')
+	parser.add_argument('-e',dest='Enc_Img',type=str,help='To Encode a message into an image')
+	parser.add_argument('-d',dest='Dec_Img',type=str,help='To Decode a message from an image')
+	options = parser.parse_args()
+	if (options.Enc_Img == None and options.Dec_Img == None):
 		print (parser.usage)
 		exit(0)
-	elif(options.inPNG != None):
-		inPNG = options.inPNG
-		Decode(inPNG)
+	elif(options.Dec_Img != None):
+		Dec_Img = options.Dec_Img
+		Decode(Dec_Img)
 	else:
-		outPNG = options.outPNG
-		print("The Encoded mesage is stored in a filename endswith (original_filename+en).png  ")
-		datatoencode = input("Please enter data to encode :")
-		Encoding(datatoencode.upper(),outPNG)
+		Enc_Img = options.Enc_Img
+		datatoencode = input("Enter the data to Encode :")
+		Encoding(datatoencode.upper(),Enc_Img)
 		
 if __name__ == '__main__':
 	Main()
