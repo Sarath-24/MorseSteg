@@ -2,10 +2,7 @@
 Morsesteg is a type of Stegnography tool used to encode and decode a message in an image.
 ## Setup and Usage
 1. Upgrade pip.
-2. Required modules :
-
-    * ```PIL```
-    * ```argparse```
+2. ```pip install -r requirements.txt```
 3. Clone this repo to your local machine.
 4. #### Help:
 
